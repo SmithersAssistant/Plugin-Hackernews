@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -6,26 +6,21 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
 
 var BASE = "https://hacker-news.firebaseio.com";
 var HACKERNEWS_COMPONENT = 'com.robinmalfait.hn';
 
 exports.default = function (robot) {
+  var React = robot.dependencies.React;
   var List = robot.cards.List;
   var _robot$UI = robot.UI;
   var Icon = _robot$UI.Icon;
   var A = _robot$UI.A;
 
 
-  var HN = _react2.default.createClass({
-    displayName: 'HN',
+  var HN = React.createClass({
+    displayName: "HN",
     getDefaultProps: function getDefaultProps() {
       return {
         itemsToShow: 20
@@ -68,7 +63,7 @@ exports.default = function (robot) {
       }, 800);
     },
     fetchStory: function fetchStory(id, done) {
-      robot.fetchJson(BASE + '/v0/item/' + id + '.json').then(function (data) {
+      robot.fetchJson(BASE + "/v0/item/" + id + ".json").then(function (data) {
         done({
           url: data.url,
           title: data.title,
@@ -78,18 +73,18 @@ exports.default = function (robot) {
       });
     },
     fetchTopStories: function fetchTopStories(done) {
-      robot.fetchJson(BASE + '/v0/topstories.json').then(function (data) {
+      robot.fetchJson(BASE + "/v0/topstories.json").then(function (data) {
         return done(data);
       });
     },
     renderItem: function renderItem(story) {
-      return _react2.default.createElement(
+      return React.createElement(
         A,
-        { target: '_blank', href: story.url },
-        story.favicon ? _react2.default.createElement('img', { style: { width: '16px', height: '16px' }, src: story.favicon, alt: story.title }) : _react2.default.createElement(Icon, { icon: 'globe' }),
-        ' ',
+        { target: "_blank", href: story.url },
+        story.favicon ? React.createElement("img", { style: { width: '16px', height: '16px' }, src: story.favicon, alt: story.title }) : React.createElement(Icon, { icon: "globe" }),
+        " ",
         story.title,
-        ' - ',
+        " - ",
         story.by
       );
     },
@@ -99,13 +94,13 @@ exports.default = function (robot) {
       var loading = this.state.loading;
 
 
-      var items = loading ? [_react2.default.createElement(
-        'h3',
+      var items = loading ? [React.createElement(
+        "h3",
         null,
-        'Loading...'
+        "Loading..."
       )] : this.state.items.map(this.renderItem);
 
-      return _react2.default.createElement(List, _extends({}, other, { title: 'Hackernews', items: items }));
+      return React.createElement(List, _extends({}, other, { title: "Hackernews", items: items }));
     }
   });
 

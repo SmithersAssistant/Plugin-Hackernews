@@ -1,10 +1,8 @@
-import React from 'react'
-
 const BASE = "https://hacker-news.firebaseio.com"
 const HACKERNEWS_COMPONENT = 'com.robinmalfait.hn'
 
 export default robot => {
-
+  const {React} = robot.dependencies
   const { List } = robot.cards
   const { Icon, A } = robot.UI
 
