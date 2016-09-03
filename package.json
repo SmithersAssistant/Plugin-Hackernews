@@ -1,8 +1,13 @@
 {
   "name": "smithers-hackernews",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "An hackernews plugin for the Smithers Assistant",
   "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SmithersAssistant/Plugin-Hackernews.git"
+  },
+  "homepage": "https://github.com/SmithersAssistant/Plugin-Hackernews",
   "keywords": [
     "smithers",
     "assistant",
