@@ -17,6 +17,8 @@ exports.default = function (robot) {
   var _robot$UI = robot.UI;
   var Icon = _robot$UI.Icon;
   var A = _robot$UI.A;
+  var enhance = robot.enhance;
+  var restorableComponent = robot.restorableComponent;
 
 
   var HN = React.createClass({
@@ -104,7 +106,7 @@ exports.default = function (robot) {
     }
   });
 
-  robot.registerComponent(HN, HACKERNEWS_COMPONENT);
+  robot.registerComponent(enhance(HN, [restorableComponent]), HACKERNEWS_COMPONENT);
 
   robot.listen(/^hn ?(.*)?$/, {
     description: "Hackernews",

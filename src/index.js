@@ -2,9 +2,10 @@ const BASE = "https://hacker-news.firebaseio.com"
 const HACKERNEWS_COMPONENT = 'com.robinmalfait.hn'
 
 export default robot => {
-  const {React} = robot.dependencies
+  const { React } = robot.dependencies
   const { List } = robot.cards
   const { Icon, A } = robot.UI
+  const { enhance, restorableComponent } = robot
 
   const HN = React.createClass({
     getDefaultProps() {
@@ -43,18 +44,18 @@ export default robot => {
     },
     fetchStory(id, done) {
       robot.fetchJson(`${BASE}/v0/item/${id}.json`)
-      .then(data => {
-        done({
-          url: data.url,
-          title: data.title,
-          by: data.by,
-          favicon: robot.faviconUrl(data.url)
+        .then(data => {
+          done({
+            url: data.url,
+            title: data.title,
+            by: data.by,
+            favicon: robot.faviconUrl(data.url)
+          })
         })
-      })
     },
     fetchTopStories(done) {
       robot.fetchJson(`${BASE}/v0/topstories.json`)
-      .then(data => done(data))
+        .then(data => done(data))
     },
     renderItem(story) {
       return (
@@ -69,7 +70,7 @@ export default robot => {
       const { ...other } = this.props
       const { loading } = this.state
 
-      const items = loading ? [<h3>Loading...</h3>] : this.state.items.map(this.renderItem)
+      const items = loading ? [ <h3>Loading...</h3> ] : this.state.items.map(this.renderItem)
 
       return (
         <List {...other} title="Hackernews" items={items}/>
@@ -77,14 +78,16 @@ export default robot => {
     }
   })
 
-  robot.registerComponent(HN, HACKERNEWS_COMPONENT);
+  robot.registerComponent(enhance(HN, [
+    restorableComponent
+  ]), HACKERNEWS_COMPONENT);
 
   robot.listen(/^hn ?(.*)?$/, {
     description: "Hackernews",
     usage: 'hn <items_to_show?>'
   }, (res) => {
     robot.addCard(HACKERNEWS_COMPONENT, {
-      itemsToShow: res.matches[1] || 20
+      itemsToShow: res.matches[ 1 ] || 20
     })
   })
 }
